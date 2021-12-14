@@ -1,0 +1,26 @@
+
+#
+# Executes commands at the start of an interactive session.
+#
+# Authors:
+#   Sorin Ionescu <sorin.ionescu@gmail.com>
+#
+
+# Source Prezto
+if [[ -s "${ZDOTDIR:-$HOME}/.zprezto/init.zsh" ]]; then
+  source "${ZDOTDIR:-$HOME}/.zprezto/init.zsh"
+fi
+
+# Customize to your needs...
+[ -f /opt/dev/dev.sh ] && source /opt/dev/dev.sh 
+
+# Useful aliases
+alias qq='exit'
+alias dus="dev up && dev server"
+alias lint-check="bundle exec rake rubocop:changed && yarn stylelint-all && yarn eslint-all && yarn stylelint-all"
+alias lint-do='bundle exec erblint --lint-all -a && yarn eslint-fix && yarn stylelint "**/*.{css,scss,sass}" --fix'
+
+
+[[ -f /opt/dev/sh/chruby/chruby.sh ]] && type chruby >/dev/null 2>&1 || chruby () { source /opt/dev/sh/chruby/chruby.sh; chruby "$@"; }
+
+[[ -x /usr/local/bin/brew ]] && eval $(/usr/local/bin/brew shellenv)
